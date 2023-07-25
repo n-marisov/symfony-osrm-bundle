@@ -43,9 +43,9 @@ class OSRMDirectionsService implements DirectionServiceInterface
      */
     protected function coordinatesToLineString( array $coordinates ):string
     {
-        return implode(";",array_map(function ( Location $location ){
-            return [$location->getLongitude(),$location->getLatitude()];
-        },$coordinates));
+        return implode(";",
+            array_map(fn(Location $l)=>"{$l->getLongitude()},{$l->getLatitude()}",$coordinates)
+        );
     }
 
     /**
