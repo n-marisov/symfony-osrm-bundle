@@ -12,10 +12,10 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('direction');
+        $treeBuilder = new TreeBuilder('osrm');
         $treeBuilder->getRootNode()
             ->children()
-                ->scalarNode('mapbox_api_token')->end()
+               // ->scalarNode('mapbox_api_token')->end()
             ->end()
         ;
 
