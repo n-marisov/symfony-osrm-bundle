@@ -25,6 +25,6 @@ class OSRMExtension extends Extension
         $loader = new YamlFileLoader( $container, new FileLocator( $path ) );
         $loader->load('services.yaml');
 
-        $container->setParameter("direction.mapbox_api_token",$config["mapbox_api_token"]);
+        //$container->setParameter("direction.mapbox_api_token",$config["mapbox_api_token"]);
     }
 }
