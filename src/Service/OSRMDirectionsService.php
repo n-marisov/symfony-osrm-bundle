@@ -57,7 +57,7 @@ class OSRMDirectionsService implements DirectionServiceInterface
     {
         $options = array_merge( $options, [
             "steps" => "true",
-            "geometries" => "polyline6",
+            "geometries" => "geojson",
             "overview" => "false"
         ]);
     }
@@ -79,8 +79,6 @@ class OSRMDirectionsService implements DirectionServiceInterface
         $this->setDefaultOptions($options);
         $uri = $this->coordinatesToLineString($coordinates)."?".http_build_query($options);
         $response = $this->client->request("GET",$uri);
-
-        dump($response->toArray());
 
         return $this->factory->create( $response->toArray()  );
     }
