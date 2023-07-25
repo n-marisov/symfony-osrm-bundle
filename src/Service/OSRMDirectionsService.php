@@ -80,6 +80,8 @@ class OSRMDirectionsService implements DirectionServiceInterface
         $uri = $this->coordinatesToLineString($coordinates)."?".http_build_query($options);
         $response = $this->client->request("GET",$uri);
 
+        dump($response->toArray());
+
         return $this->factory->create( $response->toArray()  );
     }
 
