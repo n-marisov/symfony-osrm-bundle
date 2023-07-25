@@ -24,7 +24,7 @@ class OSRMDirectionsFactory extends DirectionFactory
 
     protected function extractMessage(array $direction): ?string
     {
-        return $direction["message"] ?? "Error parse !";
+        return $direction["message"] ?? null;
     }
 
     protected function extractArrayRoutes(array $direction): array
