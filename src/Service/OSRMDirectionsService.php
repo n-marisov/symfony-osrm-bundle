@@ -17,7 +17,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class OSRMDirectionsService implements DirectionServiceInterface
 {
 
-    const URI = "https://router.project-osrm.org/route/v1/driving";
+    const URI = "https://router.project-osrm.org/route/v1/driving/";
 
     protected HttpClientInterface $client;
 
