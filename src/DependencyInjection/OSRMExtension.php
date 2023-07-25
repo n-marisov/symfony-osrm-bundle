@@ -16,9 +16,9 @@ class OSRMExtension extends Extension
     public function load( array $configs, ContainerBuilder $container )
     {
 
-        $configuration = new Configuration();
+        //$configuration = new Configuration();
 
-        $config = $this->processConfiguration( $configuration, $configs );
+        //$config = $this->processConfiguration( $configuration, $configs );
 
 
         $path = realpath( dirname(__DIR__).'/../Resources/config' );

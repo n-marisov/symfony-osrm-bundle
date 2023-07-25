@@ -11,8 +11,4 @@ class OSRMBundle extends AbstractBundle{
     {
         return new DirectionExtension();
     }
-    /*public function getPath(): string
-    {
-        return dirname(__DIR__);
-    }*/
 }
