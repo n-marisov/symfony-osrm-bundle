@@ -9,3 +9,6 @@ services:
    Maris\Symfony\OSRM\:
       resource: '../../src/'
       exclude: '../../src/{DependencyInjection,Model}'
+
+
+   Maris\Symfony\OSRM\Service\OSRMDirectionsService:
