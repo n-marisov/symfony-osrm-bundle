@@ -56,7 +56,7 @@ class OSRMDirectionsService implements DirectionServiceInterface
      */
     protected function coordinatesToLineString( array $coordinates ):string
     {
-        $precision = $this->encoder->getPrecision();
+        /*$precision = $this->encoder->getPrecision();
 
         if( $precision == 5 )
             return "polyline (".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")";
@@ -65,7 +65,16 @@ class OSRMDirectionsService implements DirectionServiceInterface
 
         return implode(";",
             array_map(fn(Location $l)=>"{$l->getLongitude()},{$l->getLatitude()}",$coordinates)
-        );
+        );*/
+
+        return match ( $this->encoder->getPrecision() ){
+            5 => "polyline(".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")",
+            6 => "polyline6(".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")",
+            default => implode(";",
+                array_map(fn(Location $l)=>"{$l->getLongitude()},{$l->getLatitude()}",$coordinates)
+            )
+        };
+
     }
 
     /**
