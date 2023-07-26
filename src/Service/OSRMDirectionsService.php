@@ -5,6 +5,7 @@ namespace Maris\Symfony\OSRM\Service;
 use Maris\Symfony\Direction\Entity\Direction;
 use Maris\Symfony\Direction\Interfaces\DirectionServiceInterface;
 use Maris\Symfony\Geo\Entity\Location;
+use Maris\Symfony\Geo\Service\PolylineEncoder;
 use Maris\Symfony\OSRM\Factory\OSRMDirectionsFactory;
 use ReflectionException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -80,7 +81,16 @@ class OSRMDirectionsService implements DirectionServiceInterface
         $uri = $this->coordinatesToLineString($coordinates)."?".http_build_query($options);
         $response = $this->client->request("GET",$uri);
 
-        return $this->factory->create( $response->toArray()  );
+        $direction = $response->toArray();
+
+        if( $options["geometries"] === "geojson")
+            return $this->factory->create( $response->toArray()  );
+
+        $factory = clone $this->factory;
+        return $factory->setEncoder(new PolylineEncoder(match ( $options["geometries"] ?? null ){
+            "polyline6" => 6,
+            default     => 5,
+        }))->create($direction);
     }
 
 

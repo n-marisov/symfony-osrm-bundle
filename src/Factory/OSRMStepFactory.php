@@ -3,9 +3,27 @@
 namespace Maris\Symfony\OSRM\Factory;
 
 use Maris\Symfony\Direction\Factory\StepFactory;
+use Maris\Symfony\Geo\Entity\Polyline;
+use Maris\Symfony\Geo\Service\PolylineEncoder;
+use ReflectionException;
 
 class OSRMStepFactory extends StepFactory
 {
+    /**
+     *
+     * @var PolylineEncoder
+     */
+    protected PolylineEncoder $encoder;
+
+    /**
+     * @param PolylineEncoder $encoder
+     * @throws ReflectionException
+     */
+    public function __construct( PolylineEncoder $encoder )
+    {
+        parent::__construct();
+        $this->encoder = $encoder;
+    }
 
     /**
      * @inheritDoc
@@ -34,5 +52,12 @@ class OSRMStepFactory extends StepFactory
     protected function extractArrayGeometry( array $step ): array
     {
         return $step["geometry"]["coordinates"];
+    }
+
+    protected function createGeometry(array|string $geometry): Polyline
+    {
+        return (is_string($geometry))
+            ? $this->encoder->decode( $geometry )
+            : parent::createGeometry( $geometry );
     }
 }

@@ -4,6 +4,7 @@ namespace Maris\Symfony\OSRM\Factory;
 
 use Maris\Symfony\Direction\Factory\LegFactory;
 use Maris\Symfony\Direction\Factory\StepFactory;
+use Maris\Symfony\Geo\Service\PolylineEncoder;
 
 class OSRMLegFactory extends LegFactory
 {
