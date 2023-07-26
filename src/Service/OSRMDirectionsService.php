@@ -58,9 +58,11 @@ class OSRMDirectionsService implements DirectionServiceInterface
     {
         $precision = $this->encoder->getPrecision();
 
-        if( $precision === 5 )
+        dump($precision);
+
+        if( $precision == 5 )
             return "polyline (".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")";
-        elseif ($precision === 6)
+        elseif ($precision == 6)
             "polyline6 (".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")";
 
         return implode(";",
