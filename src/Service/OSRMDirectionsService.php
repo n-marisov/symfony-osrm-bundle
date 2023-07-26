@@ -24,16 +24,24 @@ class OSRMDirectionsService implements DirectionServiceInterface
 
     protected OSRMDirectionsFactory $factory;
 
+
+    protected string $geometries;
+    protected bool $alternatives;
+
     /**
      * @param HttpClientInterface $client
      * @param OSRMDirectionsFactory $factory
+     * @param string $geometries
+     * @param bool $alternatives
      */
-    public function __construct( HttpClientInterface $client, OSRMDirectionsFactory $factory )
+    public function __construct( HttpClientInterface $client, OSRMDirectionsFactory $factory , string $geometries = "polyline6", $alternatives = false)
     {
         $this->client = $client->withOptions([
             'base_uri' => self::URI
         ]);
         $this->factory = $factory;
+        $this->geometries = $geometries;
+        $this->alternatives = $alternatives;
     }
 
 
@@ -56,11 +64,17 @@ class OSRMDirectionsService implements DirectionServiceInterface
      */
     protected function setDefaultOptions( array &$options ):void
     {
-        $options = array_merge( $options, [
-            "steps" => "true",
-            "geometries" => "geojson",
-            "overview" => "false"
-        ]);
+        $options = array_merge(
+            [
+                "alternatives" => ($this->alternatives)?"true":"false",
+                "geometries" => $this->geometries,
+            ],
+            $options,
+            [
+                "steps" => "true",
+                "overview" => "false"
+            ]
+        );
     }
 
     /**

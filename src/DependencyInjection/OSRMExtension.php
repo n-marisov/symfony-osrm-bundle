@@ -16,15 +16,14 @@ class OSRMExtension extends Extension
     public function load( array $configs, ContainerBuilder $container )
     {
 
-        //$configuration = new Configuration();
-
-        //$config = $this->processConfiguration( $configuration, $configs );
-
+        $configuration = new Configuration();
+        $config = $this->processConfiguration( $configuration, $configs );
 
         $path = realpath( dirname(__DIR__).'/../Resources/config' );
         $loader = new YamlFileLoader( $container, new FileLocator( $path ) );
         $loader->load('services.yaml');
 
-        //$container->setParameter("direction.mapbox_api_token",$config["mapbox_api_token"]);
+        $container->setParameter("osrm.request.geometries",$config["geometries"]);
+        $container->setParameter("osrm.request.alternatives",$config["alternatives"]);
     }
 }
