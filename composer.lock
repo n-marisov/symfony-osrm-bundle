@@ -1138,7 +1138,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/n-marisov/symfony-direction-bundle.git",
-                "reference": "d9151a0244c79b1708c6092b198af12a1c4cc818"
+                "reference": "ac523b30af0330f5d9490bc00b3bd93bb18d6ba3"
             },
             "require": {
                 "maris/symfony-geo-bundle": "dev-master",
@@ -1170,7 +1170,7 @@
                 }
             ],
             "description": "Пакет добавляет возможность сохранения маршрутов движения в базе данных.",
-            "time": "2023-07-26T20:17:39+00:00"
+            "time": "2023-07-26T20:48:09+00:00"
         },
         {
             "name": "maris/symfony-geo-bundle",

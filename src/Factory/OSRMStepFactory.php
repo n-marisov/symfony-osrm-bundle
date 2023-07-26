@@ -49,15 +49,16 @@ class OSRMStepFactory extends StepFactory
         return $segment["duration"];
     }
 
-    protected function extractArrayGeometry( array $step ): array
+    protected function extractArrayGeometry( array $step ): array|string
     {
-        return $step["geometry"]["coordinates"];
+        return $step["geometry"];
     }
 
     protected function createGeometry(array|string $geometry): Polyline
     {
-        return (is_string($geometry))
-            ? $this->encoder->decode( $geometry )
-            : parent::createGeometry( $geometry );
+        if (is_string($geometry))
+            return $this->encoder->decode( $geometry );
+
+        return parent::createGeometry( $geometry["coordinates"] ?? [] );
     }
 }
