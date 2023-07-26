@@ -12,3 +12,6 @@ services:
 
 
    Maris\Symfony\OSRM\Service\OSRMDirectionsService:
+      arguments:
+         $geometries: '%osrm.request.geometries%'
+         $alternatives: '%osrm.request.alternatives%'
