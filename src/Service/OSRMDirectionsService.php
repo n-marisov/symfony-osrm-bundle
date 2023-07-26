@@ -56,17 +56,6 @@ class OSRMDirectionsService implements DirectionServiceInterface
      */
     protected function coordinatesToLineString( array $coordinates ):string
     {
-        /*$precision = $this->encoder->getPrecision();
-
-        if( $precision == 5 )
-            return "polyline (".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")";
-        elseif ($precision == 6)
-            return "polyline6 (".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")";
-
-        return implode(";",
-            array_map(fn(Location $l)=>"{$l->getLongitude()},{$l->getLatitude()}",$coordinates)
-        );*/
-
         return match ( $this->encoder->getPrecision() ){
             5 => "polyline(".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")",
             6 => "polyline6(".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")",
@@ -116,9 +105,6 @@ class OSRMDirectionsService implements DirectionServiceInterface
         $response = $this->client->request("GET",$uri);
 
         $direction = $response->toArray();
-
-        dump($uri);
-        dump($direction);
 
         if( $options["geometries"] === "geojson")
             return $this->factory->create( $response->toArray()  );
