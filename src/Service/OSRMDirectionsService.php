@@ -5,6 +5,7 @@ namespace Maris\Symfony\OSRM\Service;
 use Maris\Symfony\Direction\Entity\Direction;
 use Maris\Symfony\Direction\Interfaces\DirectionServiceInterface;
 use Maris\Symfony\Geo\Entity\Location;
+use Maris\Symfony\Geo\Entity\Polyline;
 use Maris\Symfony\Geo\Service\PolylineEncoder;
 use Maris\Symfony\OSRM\Factory\OSRMDirectionsFactory;
 use ReflectionException;
@@ -24,6 +25,7 @@ class OSRMDirectionsService implements DirectionServiceInterface
 
     protected OSRMDirectionsFactory $factory;
 
+    protected PolylineEncoder $encoder;
 
     protected string $geometries;
     protected bool $alternatives;
@@ -31,14 +33,16 @@ class OSRMDirectionsService implements DirectionServiceInterface
     /**
      * @param HttpClientInterface $client
      * @param OSRMDirectionsFactory $factory
+     * @param PolylineEncoder $encoder
      * @param string $geometries
      * @param bool $alternatives
      */
-    public function __construct( HttpClientInterface $client, OSRMDirectionsFactory $factory , string $geometries = "polyline6", $alternatives = false)
+    public function __construct( HttpClientInterface $client, OSRMDirectionsFactory $factory , PolylineEncoder $encoder, string $geometries = "polyline6", $alternatives = false)
     {
         $this->client = $client->withOptions([
             'base_uri' => self::URI
         ]);
+        $this->encoder = $encoder;
         $this->factory = $factory;
         $this->geometries = $geometries;
         $this->alternatives = $alternatives;
@@ -52,6 +56,13 @@ class OSRMDirectionsService implements DirectionServiceInterface
      */
     protected function coordinatesToLineString( array $coordinates ):string
     {
+        $precision = $this->encoder->getPrecision();
+
+        if( $precision === 5 )
+            return "polyline (".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")";
+        elseif ($precision === 6)
+            "polyline6 (".$this->encoder->encode( new Polyline( ...$coordinates ) ) .")";
+
         return implode(";",
             array_map(fn(Location $l)=>"{$l->getLongitude()},{$l->getLatitude()}",$coordinates)
         );

@@ -1178,7 +1178,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/n-marisov/symfony-geo-bundle.git",
-                "reference": "06e22e32f3deb330a73a2b054d9b470355358ddc"
+                "reference": "4ecda45b9607933f4a59ead20e40aee6df7175ee"
             },
             "require": {
                 "doctrine/doctrine-bundle": "^2.8",
@@ -1214,7 +1214,7 @@
                 }
             ],
             "description": "Пакет добавляет возможность сохранения географических координат и фигур на карте в базе данных.",
-            "time": "2023-07-26T18:52:54+00:00"
+            "time": "2023-07-26T21:21:01+00:00"
         },
         {
             "name": "psr/cache",

@@ -15,6 +15,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('osrm');
         $treeBuilder->getRootNode()
             ->children()
+
+            # В каком виде запрашивается геометрия
+            ->enumNode("profile")
+                ->values(["driving"/**/,"car"/*автомобиль*/ , "bike" /*велосипед*/, "foot"/*пешком*/])
+                ->defaultValue("polyline6")
+            ->end()
+
                 # В каком виде запрашивается геометрия
                 ->enumNode("geometries")
                     ->values(["polyline","polyline6","geojson"])
@@ -23,7 +30,7 @@ class Configuration implements ConfigurationInterface
 
                 # Запрашивать альтернативные маршруты
                 ->booleanNode("alternatives")->defaultValue(false)->end()
-               // ->scalarNode('mapbox_api_token')->end()
+
             ->end()
         ;
 
