@@ -108,7 +108,7 @@ class OSRMDirectionsService implements DirectionServiceInterface
 
         $direction = $response->toArray();
 
-
+        dump($uri);
         dump($direction);
 
         if( $options["geometries"] === "geojson")
